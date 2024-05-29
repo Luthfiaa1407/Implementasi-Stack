@@ -94,6 +94,37 @@ void printInfix(const vector<string>& infix) {
     cout << endl;
 }
 
+int evaluatePostfix(const vector <string>& postFix){
+	stack<int>exec;
+	
+	for(const string& token : postFix) {
+		if(isdigit(token[0]) || (token.size() > 1 && isdigit(token[1]))){
+			exec.push(atoi(token.c_str()));
+		} else {
+			int b = exec.top();
+			exec.pop();
+			int a = exec.top();
+			exec.pop();
+			int hasil;
+			
+			if(token == "+"){
+				hasil = a+b;
+			} else if (token == "-"){
+				hasil = a-b;
+			} else if (token == "*"){
+				hasil = a*b;
+			} else if (token == "/"){
+				hasil = a/b;
+			}
+			
+			exec.push(hasil);
+		}
+	}
+	
+	return exec.top();
+}
+
+
 int main() {
     string infix;
     getline(cin, infix);
@@ -102,9 +133,12 @@ int main() {
     cout << " Bentuk parsed infixnya: ";
     printInfix(infixElements);
 
-vector<string> postfix = infixToPostfix(infixElements);
+    vector<string> postfix = infixToPostfix(infixElements);
     cout << "Bentuk postfixnya: ";    
     printInfix(postfix);
+
+    int hasil = evaluatePostfix(postfix);
+    cout << hasil << endl;
 
   }
 
