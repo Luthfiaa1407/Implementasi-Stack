@@ -101,5 +101,10 @@ int main() {
     vector<string> infixElements = stringToInfix(infix);
     cout << " Bentuk parsed infixnya: ";
     printInfix(infixElements);
+
+vector<string> postfix = infixToPostfix(infixElements);
+    cout << "Bentuk postfixnya: ";    
+    printInfix(postfix);
+
   }
 
